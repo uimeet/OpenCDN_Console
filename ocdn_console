@@ -138,6 +138,19 @@ mv -f /etc/yum.conf.lnmp /etc/yum.conf
 
 echo "============================check files=================================="
 file_noexists_download ./php-5.2.17.tar.gz http://soft.vpser.net/web/php/php-5.2.17.tar.gz
+file_noexists_download ./php-5.2.17-fpm-0.5.14.diff.gz http://soft.vpser.net/web/phpfpm/php-5.2.17-fpm-0.5.14.diff.gz
+file_noexists_download ./memcache-3.0.6.tgz http://soft.vpser.net/web/memcache/memcache-3.0.6.tgz
+file_noexists_download ./pcre-8.12.tar.gz http://soft.vpser.net/web/pcre/pcre-8.12.tar.gz
+file_noexists_download ./nginx-1.0.15.tar.gz http://soft.vpser.net/web/nginx/nginx-1.0.15.tar.gz
+file_noexists_download ./mysql-5.1.60.tar.gz http://soft.vpser.net/datebase/mysql/mysql-5.1.60.tar.gz
+file_noexists_download ./libiconv-1.14.tar.gz http://soft.vpser.net/web/libiconv/libiconv-1.14.tar.gz
+file_noexists_download ./libmcrypt-2.5.8.tar.gz http://soft.vpser.net/web/libmcrypt/libmcrypt-2.5.8.tar.gz
+file_noexists_download ./mhash-0.9.9.9.tar.gz http://soft.vpser.net/web/mhash/mhash-0.9.9.9.tar.gz
+file_noexists_download ./mcrypt-2.6.8.tar.gz http://soft.vpser.net/web/mcrypt/mcrypt-2.6.8.tar.gz
+file_noexists_download ./phpmyadmin-latest.tar.gz http://soft.vpser.net/datebase/phpmyadmin/phpmyadmin-latest.tar.gz
+file_noexists_download ./p.tar.gz http://soft.vpser.net/prober/p.tar.gz
+file_noexists_download ./autoconf-2.13.tar.gz http://soft.vpser.net/lib/autoconf/autoconf-2.13.tar.gz
+
 #if [ -s php-5.2.17.tar.gz ]; then
 #  echo "php-5.2.17.tar.gz [found]"
 #  else
@@ -145,89 +158,89 @@ file_noexists_download ./php-5.2.17.tar.gz http://soft.vpser.net/web/php/php-5.2
 #  wget -c http://soft.vpser.net/web/php/php-5.2.17.tar.gz
 #fi
 
-if [ -s php-5.2.17-fpm-0.5.14.diff.gz ]; then
-  echo "php-5.2.17-fpm-0.5.14.diff.gz [found]"
-  else
-  echo "Error: php-5.2.17-fpm-0.5.14.diff.gz not found!!!download now......"
-  wget -c http://soft.vpser.net/web/phpfpm/php-5.2.17-fpm-0.5.14.diff.gz
-fi
+#if [ -s php-5.2.17-fpm-0.5.14.diff.gz ]; then
+#  echo "php-5.2.17-fpm-0.5.14.diff.gz [found]"
+#  else
+#  echo "Error: php-5.2.17-fpm-0.5.14.diff.gz not found!!!download now......"
+#  wget -c http://soft.vpser.net/web/phpfpm/php-5.2.17-fpm-0.5.14.diff.gz
+#fi
 
-if [ -s memcache-3.0.6.tgz ]; then
-  echo "memcache-3.0.6.tgz [found]"
-  else
-  echo "Error: memcache-3.0.6.tgz not found!!!download now......"
-  wget -c http://soft.vpser.net/web/memcache/memcache-3.0.6.tgz
-fi
+#if [ -s memcache-3.0.6.tgz ]; then
+#  echo "memcache-3.0.6.tgz [found]"
+#  else
+#  echo "Error: memcache-3.0.6.tgz not found!!!download now......"
+#  wget -c http://soft.vpser.net/web/memcache/memcache-3.0.6.tgz
+#fi
 
-if [ -s pcre-8.12.tar.gz ]; then
-  echo "pcre-8.12.tar.gz [found]"
-  else
-  echo "Error: pcre-8.12.tar.gz not found!!!download now......"
-  wget -c http://soft.vpser.net/web/pcre/pcre-8.12.tar.gz
-fi
+#if [ -s pcre-8.12.tar.gz ]; then
+#  echo "pcre-8.12.tar.gz [found]"
+#  else
+#  echo "Error: pcre-8.12.tar.gz not found!!!download now......"
+#  wget -c http://soft.vpser.net/web/pcre/pcre-8.12.tar.gz
+#fi
 
-if [ -s nginx-1.0.15.tar.gz ]; then
-  echo "nginx-1.0.15.tar.gz [found]"
-  else
-  echo "Error: nginx-1.0.15.tar.gz not found!!!download now......"
-  wget -c http://soft.vpser.net/web/nginx/nginx-1.0.15.tar.gz
-fi
+#if [ -s nginx-1.0.15.tar.gz ]; then
+#  echo "nginx-1.0.15.tar.gz [found]"
+#  else
+#  echo "Error: nginx-1.0.15.tar.gz not found!!!download now......"
+#  wget -c http://soft.vpser.net/web/nginx/nginx-1.0.15.tar.gz
+#fi
 
-if [ -s mysql-5.1.60.tar.gz ]; then
-  echo "mysql-5.1.60.tar.gz [found]"
-  else
-  echo "Error: mysql-5.1.60.tar.gz not found!!!download now......"
-  wget -c http://soft.vpser.net/datebase/mysql/mysql-5.1.60.tar.gz
-fi
+#if [ -s mysql-5.1.60.tar.gz ]; then
+#  echo "mysql-5.1.60.tar.gz [found]"
+#  else
+#  echo "Error: mysql-5.1.60.tar.gz not found!!!download now......"
+#  wget -c http://soft.vpser.net/datebase/mysql/mysql-5.1.60.tar.gz
+#fi
 
-if [ -s libiconv-1.14.tar.gz ]; then
-  echo "libiconv-1.14.tar.gz [found]"
-  else
-  echo "Error: libiconv-1.14.tar.gz not found!!!download now......"
-  wget -c http://soft.vpser.net/web/libiconv/libiconv-1.14.tar.gz
-fi
+#if [ -s libiconv-1.14.tar.gz ]; then
+#  echo "libiconv-1.14.tar.gz [found]"
+#  else
+#  echo "Error: libiconv-1.14.tar.gz not found!!!download now......"
+#  wget -c http://soft.vpser.net/web/libiconv/libiconv-1.14.tar.gz
+#fi
 
-if [ -s libmcrypt-2.5.8.tar.gz ]; then
-  echo "libmcrypt-2.5.8.tar.gz [found]"
-  else
-  echo "Error: libmcrypt-2.5.8.tar.gz not found!!!download now......"
-  wget -c  http://soft.vpser.net/web/libmcrypt/libmcrypt-2.5.8.tar.gz
-fi
+#if [ -s libmcrypt-2.5.8.tar.gz ]; then
+#  echo "libmcrypt-2.5.8.tar.gz [found]"
+#  else
+#  echo "Error: libmcrypt-2.5.8.tar.gz not found!!!download now......"
+#  wget -c  http://soft.vpser.net/web/libmcrypt/libmcrypt-2.5.8.tar.gz
+#fi
 
-if [ -s mhash-0.9.9.9.tar.gz ]; then
-  echo "mhash-0.9.9.9.tar.gz [found]"
-  else
-  echo "Error: mhash-0.9.9.9.tar.gz not found!!!download now......"
-  wget -c http://soft.vpser.net/web/mhash/mhash-0.9.9.9.tar.gz
-fi
+#if [ -s mhash-0.9.9.9.tar.gz ]; then
+#  echo "mhash-0.9.9.9.tar.gz [found]"
+#  else
+#  echo "Error: mhash-0.9.9.9.tar.gz not found!!!download now......"
+#  wget -c http://soft.vpser.net/web/mhash/mhash-0.9.9.9.tar.gz
+#fi
 
-if [ -s mcrypt-2.6.8.tar.gz ]; then
-  echo "mcrypt-2.6.8.tar.gz [found]"
-  else
-  echo "Error: mcrypt-2.6.8.tar.gz not found!!!download now......"
-  wget -c http://soft.vpser.net/web/mcrypt/mcrypt-2.6.8.tar.gz
-fi
+#if [ -s mcrypt-2.6.8.tar.gz ]; then
+#  echo "mcrypt-2.6.8.tar.gz [found]"
+#  else
+#  echo "Error: mcrypt-2.6.8.tar.gz not found!!!download now......"
+#  wget -c http://soft.vpser.net/web/mcrypt/mcrypt-2.6.8.tar.gz
+#fi
 
-if [ -s phpmyadmin-latest.tar.gz ]; then
-  echo "phpmyadmin-latest.tar.gz [found]"
-  else
-  echo "Error: phpmyadmin-latest.tar.gz not found!!!download now......"
-  wget -c http://soft.vpser.net/datebase/phpmyadmin/phpmyadmin-latest.tar.gz
-fi
+#if [ -s phpmyadmin-latest.tar.gz ]; then
+#  echo "phpmyadmin-latest.tar.gz [found]"
+#  else
+#  echo "Error: phpmyadmin-latest.tar.gz not found!!!download now......"
+#  wget -c http://soft.vpser.net/datebase/phpmyadmin/phpmyadmin-latest.tar.gz
+#fi
 
-if [ -s p.tar.gz ]; then
-  echo "p.tar.gz [found]"
-  else
-  echo "Error: p.tar.gz not found!!!download now......"
-  wget -c http://soft.vpser.net/prober/p.tar.gz
-fi
+#if [ -s p.tar.gz ]; then
+#  echo "p.tar.gz [found]"
+#  else
+#  echo "Error: p.tar.gz not found!!!download now......"
+#  wget -c http://soft.vpser.net/prober/p.tar.gz
+#fi
 
-if [ -s autoconf-2.13.tar.gz ]; then
-  echo "autoconf-2.13.tar.gz [found]"
-  else
-  echo "Error: autoconf-2.13.tar.gz not found!!!download now......"
-  wget -c http://soft.vpser.net/lib/autoconf/autoconf-2.13.tar.gz
-fi
+#if [ -s autoconf-2.13.tar.gz ]; then
+#  echo "autoconf-2.13.tar.gz [found]"
+#  else
+#  echo "Error: autoconf-2.13.tar.gz not found!!!download now......"
+#  wget -c http://soft.vpser.net/lib/autoconf/autoconf-2.13.tar.gz
+#fi
 echo "============================check files=================================="
 
 cd $cur_dir
