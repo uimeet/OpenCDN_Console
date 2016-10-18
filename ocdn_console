@@ -2,6 +2,20 @@
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
+function file_noexists_download()
+{
+	FILE_NAME="$1"
+	DOWN_LINK="$2"
+	if [ ! -f "${FILE_NAME}" ]
+	then
+		echo -e "\033[41;37m ERROR \033[0m"
+		echo "${FILE_NAME} does not exist ! download now..."
+		wget -c "${DOWN_LINK}"
+	else
+	    echo "${FILE_NAME} [found]"
+	fi
+}
+
 # Check if user is root
 if [ $(id -u) != "0" ]; then
     echo "Error: You must be root to run this script, please use root to install lnmp"
@@ -123,12 +137,13 @@ do yum -y install $packages; done
 mv -f /etc/yum.conf.lnmp /etc/yum.conf
 
 echo "============================check files=================================="
-if [ -s php-5.2.17.tar.gz ]; then
-  echo "php-5.2.17.tar.gz [found]"
-  else
-  echo "Error: php-5.2.17.tar.gz not found!!!download now......"
-  wget -c http://soft.vpser.net/web/php/php-5.2.17.tar.gz
-fi
+file_noexists_download ./php-5.2.17.tar.gz http://soft.vpser.net/web/php/php-5.2.17.tar.gz
+#if [ -s php-5.2.17.tar.gz ]; then
+#  echo "php-5.2.17.tar.gz [found]"
+#  else
+#  echo "Error: php-5.2.17.tar.gz not found!!!download now......"
+#  wget -c http://soft.vpser.net/web/php/php-5.2.17.tar.gz
+#fi
 
 if [ -s php-5.2.17-fpm-0.5.14.diff.gz ]; then
   echo "php-5.2.17-fpm-0.5.14.diff.gz [found]"
