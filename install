@@ -197,7 +197,7 @@ cd ${OLD_DIR}
 mkdir -p ${OPENCDN_EXEC_PATH}
 DB_PassWord=`cat ${OPENCDN_CONF_FILE}  | grep "DB_PassWord" | awk -F = '{print $2}'`
 
-filename_sql=${OLD_DIR}/"cdn_info.sql"
+filename_sql=${OLD_DIR}/"ocdn/cdn_info.sql"
 is_file_exsist $filename_sql
 
 DB_NAME="cdn_info"
