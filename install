@@ -6,9 +6,9 @@
 # system information on each node, such as cpu usage and health status. CC also can collect logs 
 # of nginx from all node-hosts. You'd better reference to source code
 
-# author : firefoxbug
-# E-Mail : wanghuafire@gmail.com
-# Blog   : blog.csdn.net/firefoxbug
+# author : mmslake
+# E-Mail : mmslake@gmail.com
+# Blog   : None
 
 ## Check user permissions ##
 if [ $(id -u) != "0" ]; then
