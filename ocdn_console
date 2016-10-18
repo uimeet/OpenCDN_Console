@@ -48,7 +48,7 @@ if [ "$1" != "--help" ]; then
   echo "==========================="
 
 #change mysql password
-  sed -i "s/DB_PassWord=ocdn.me/DB_PassWord=$mysqlrootpwd/" /usr/local/opencdn/conf/opencdn.conf
+  sed -i "s/DB_PassWord=mmslake/DB_PassWord=$mysqlrootpwd/" /usr/local/opencdn/conf/opencdn.conf
 #do you want to install the InnoDB Storage Engine?
 
 echo "==========================="

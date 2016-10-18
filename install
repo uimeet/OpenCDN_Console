@@ -148,14 +148,19 @@ fi
 OLD_DIR=`pwd`
 mv -f  ${OLD_DIR}/opencdn.conf ${OPENCDN_CONF_PATH}/
 
-wget -c http://soft.vpser.net/lnmp/lnmp0.9.tar.gz
 if [ -f "./lnmp0.9.tar.gz" ]
 then
-	tar -zxvf lnmp0.9.tar.gz
+    tar -zxvf lnmp0.9.tar.gz
 else
-	echo "Downloading http://soft.vpser.net/lnmp/lnmp0.9.tar.gz failured !!!"
-	exit 1
-fi 
+    wget -c http://soft.vpser.net/lnmp/lnmp0.9.tar.gz
+    if [ -f "./lnmp0.9.tar.gz" ]
+    then
+        tar -zxvf lnmp0.9.tar.gz
+    else
+        echo "Downloading http://soft.vpser.net/lnmp/lnmp0.9.tar.gz failured !!!"
+        exit 1
+    fi
+fi
 
 mv -f ${OLD_DIR}/ocdn_console ${OLD_DIR}/lnmp0.9/
 chmod u+x ${OLD_DIR}/lnmp0.9/ocdn_console
