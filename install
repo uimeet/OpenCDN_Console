@@ -57,16 +57,16 @@ function killd_server()
 
 function get_system_basic_info()
 {
-	echo "==========================OpenCDN===================================="
+	echo "==========================AmengCDN===================================="
 	echo "*                                                                   *"
 	echo "*                                                                   *"
-	echo "*                     Welcome To OpenCDN                            *"
+	echo "*                     Welcome To AmengCDN                            *"
 	echo "*                                                                   *"
 	echo "*                                                                   *"
-	echo "==========================OpenCDN===================================="
+	echo "==========================AmengCDN===================================="
 
 	echo ""
-	echo "Press any key to start install opencdn , please wait ......"
+	echo "Press any key to start install AmengCDN , please wait ......"
 	char=`get_char`
 
 	OpenCDN_Manage_IP=""
@@ -102,7 +102,7 @@ function is_file_exsist()
 	if [ ! -f "${OCDN_CONF}" ]
 	then
 		echo -e "\033[41;37m ERROR \033[0m"
-		echo "${OCDN_CONF} does not exist ! You can report us : ocdn.me"
+		echo "${OCDN_CONF} does not exist ! You can report us : mmslake@gmail.com"
 		exit 1
 	fi
 }
