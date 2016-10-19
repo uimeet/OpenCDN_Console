@@ -394,7 +394,8 @@ export PHP_AUTOHEADER=/usr/local/autoconf-2.13/bin/autoheader
 tar zxvf php-5.2.17.tar.gz
 gzip -cd php-5.2.17-fpm-0.5.14.diff.gz | patch -d php-5.2.17 -p1
 cd php-5.2.17/
-wget -c http://soft.vpser.net/web/php/bug/php-5.2.17-max-input-vars.patch
+#wget -c http://soft.vpser.net/web/php/bug/php-5.2.17-max-input-vars.patch
+file_noexists_download ./php-5.2.17-max-input-vars.patch http://soft.vpser.net/web/php/bug/php-5.2.17-max-input-vars.patch
 patch -p1 < php-5.2.17-max-input-vars.patch
 ./buildconf --force
 ./configure --prefix=/usr/local/php --with-config-file-path=/usr/local/php/etc --with-mysql=/usr/local/mysql --with-mysqli=/usr/local/mysql/bin/mysql_config --with-iconv-dir --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-discard-path --enable-magic-quotes --enable-safe-mode --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --with-curlwrappers --enable-mbregex --enable-fastcgi --enable-fpm --enable-force-cgi-redirect --enable-mbstring --with-mcrypt --enable-ftp --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-xmlrpc --enable-zip --enable-soap --without-pear --with-gettext --with-mime-magic 
@@ -436,12 +437,14 @@ sed -i 's/max_execution_time = 30/max_execution_time = 300/g' /usr/local/php/etc
 sed -i 's/disable_functions =.*/disable_functions = passthru,exec,system,chroot,scandir,chgrp,chown,shell_exec,proc_open,proc_get_status,ini_alter,ini_alter,ini_restore,dl,pfsockopen,openlog,syslog,readlink,symlink,popepassthru,stream_socket_server,fsocket,fsockopen/g' /usr/local/php/etc/php.ini
 
 if [ `getconf WORD_BIT` = '32' ] && [ `getconf LONG_BIT` = '64' ] ; then
-        wget -c http://soft.vpser.net/web/zend/ZendOptimizer-3.3.9-linux-glibc23-x86_64.tar.gz
+        #wget -c http://soft.vpser.net/web/zend/ZendOptimizer-3.3.9-linux-glibc23-x86_64.tar.gz
+        file_noexists_download ./ZendOptimizer-3.3.9-linux-glibc23-x86_64.tar.gz http://soft.vpser.net/web/zend/ZendOptimizer-3.3.9-linux-glibc23-x86_64.tar.gz
         tar zxvf ZendOptimizer-3.3.9-linux-glibc23-x86_64.tar.gz
   mkdir -p /usr/local/zend/
   cp ZendOptimizer-3.3.9-linux-glibc23-x86_64/data/5_2_x_comp/ZendOptimizer.so /usr/local/zend/
 else
-        wget -c http://soft.vpser.net/web/zend/ZendOptimizer-3.3.9-linux-glibc23-i386.tar.gz
+        #wget -c http://soft.vpser.net/web/zend/ZendOptimizer-3.3.9-linux-glibc23-i386.tar.gz
+        file_noexists_download ./ZendOptimizer-3.3.9-linux-glibc23-i386.tar.gz http://soft.vpser.net/web/zend/ZendOptimizer-3.3.9-linux-glibc23-i386.tar.gz
   tar zxvf ZendOptimizer-3.3.9-linux-glibc23-i386.tar.gz
   mkdir -p /usr/local/zend/
   cp ZendOptimizer-3.3.9-linux-glibc23-i386/data/5_2_x_comp/ZendOptimizer.so /usr/local/zend/
@@ -469,7 +472,8 @@ chown -R www:www /home/wwwroot
 rm -f /usr/local/php/etc/php-fpm.conf
 cp conf/php-fpm.conf /usr/local/php/etc/php-fpm.conf
 
-wget -c http://soft.vpser.net/lnmp/ext/init.d.php-fpm5.2
+#wget -c http://soft.vpser.net/lnmp/ext/init.d.php-fpm5.2
+file_noexists_download init.d.php-fpm5.2 http://soft.vpser.net/lnmp/ext/init.d.php-fpm5.2
 cp init.d.php-fpm5.2 /etc/init.d/php-fpm
 chmod +x /etc/init.d/php-fpm
 echo "============================php+eaccelerator install completed======================"
@@ -540,7 +544,8 @@ echo "============================phpMyAdmin install completed==================
 
 echo "============================add nginx and php-fpm on startup============================"
 echo "Download new nginx init.d file......"
-wget -c http://soft.vpser.net/lnmp/ext/init.d.nginx
+#wget -c http://soft.vpser.net/lnmp/ext/init.d.nginx
+file_noexists_download init.d.nginx http://soft.vpser.net/lnmp/ext/init.d.nginx
 cp init.d.nginx /etc/init.d/nginx
 chmod +x /etc/init.d/nginx
 
