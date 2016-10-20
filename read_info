@@ -66,14 +66,21 @@ do
         continue
     fi
 
+    mysql_cmd=`echo "$LINE" | sed "s/^${IP} //"`
+
     is_node_exist=`mysql -h${DB_HOST}  -P${PORT}  -u${DB_USER} -p${DB_PASSWD} -D${DB_NAME} -e "${select_sql} where NodeIP=\"${IP}\";"`
     if [ ! -z "$is_node_exist" ]
     then
-        mysql_cmd=`echo "$LINE" | sed "s/^${IP} //"`
         if [ -z "`echo $mysql_cmd | grep ^update`" ]
         then
             mysql_cmd="update "${mysql_cmd}
         fi
         mysql -h${DB_HOST}  -P${PORT}  -u${DB_USER} -p${DB_PASSWD} -D${DB_NAME} -e "${mysql_cmd} where NodeIP=\"${IP}\";"
+    else
+        if [ -z "`echo $mysql_cmd | grep ^update`" ]
+        then
+            mysql_cmd="insert ignore into "${mysql_cmd}
+        fi
+        mysql -h${DB_HOST}  -P${PORT}  -u${DB_USER} -p${DB_PASSWD} -D${DB_NAME} -e "${mysql_cmd}, NodeIP=\"${IP}\";"
     fi
 done
