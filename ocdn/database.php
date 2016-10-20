@@ -4,12 +4,12 @@ class database {
 	private $dbHost = 'localhost';
 	private $dbName = 'cdn_info';
 	private $dbUser = 'root';
-	private $dbPass = 'DP';
+	private $dbPass = '163888';
 	private $dbObj = false;
 
 	function __construct(){
 		//$this->dbObj = new PDO("mysql:host={$this->dbHost};dbname={$this->dbName};charset=UTF-8", $this->dbUser, $this->dbPass);
-		$this->dbObj = new PDO("mysql:host={$this->dbHost};dbname={$this->dbName};charset=UTF-8", $this->dbUser, $this->dbPass, Array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES'UTF8';"));
+		$this->dbObj = new PDO("mysql:host={$this->dbHost};dbname={$this->dbName};charset=UTF8", $this->dbUser, $this->dbPass, Array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES'UTF8';"));
 		$this->dbObj->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
 
