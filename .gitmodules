@@ -1,3 +1,6 @@
 [submodule "web"]
 	path = web
 	url = https://uimeet@bitbucket.org/thailand-xxx/opencdn-web.git
+[submodule "spider"]
+	path = spider
+	url = https://uimeet@bitbucket.org/thailand-xxx/opencdn-spider.git
