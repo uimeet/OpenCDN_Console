@@ -109,7 +109,7 @@ function is_file_exsist()
 
 get_system_basic_info
 
-killd_server
+#killd_server
 AMENGCDN_BASE_PATH="/usr/local/amengcdn"
 AMENGCDN_EXEC_PATH="/usr/local/amengcdn/sbin"
 AMENGCDN_CONF_PATH="/usr/local/amengcdn/conf"
@@ -149,12 +149,12 @@ OLD_DIR=`pwd`
 mv -f  ${OLD_DIR}/amengcdn.conf ${AMENGCDN_CONF_PATH}/
 
 
-echo "===========================nginx install start===================================="
-pushd nginx
-chmod u+x ./nginx.sh
-./nginx.sh
-popd
-echo "===========================nginx install completed================================"
+#echo "===========================nginx install start===================================="
+#pushd nginx
+#chmod u+x ./nginx.sh
+#./nginx.sh
+#popd
+#echo "===========================nginx install completed================================"
 
 
 echo -e "\033[41;37m =======================syslog install======================== \033[0m"
@@ -163,29 +163,28 @@ yum -y install syslog-ng
 mv -f ${OLD_DIR}/syslog-ng.conf /etc/syslog-ng/syslog-ng.conf
 chkconfig syslog-ng on
 service syslog-ng start
-/etc/init.d/nginx start
+#/etc/init.d/nginx start
 
 echo -e "\033[41;37m ====================syslog install completed======================\033[0m"
 
 cd ${OLD_DIR}
 
-mkdir -p ${AMENGCDN_EXEC_PATH}
-DB_PassWord=`cat ${AMENGCDN_CONF_FILE}  | grep "DB_PassWord" | awk -F = '{print $2}'`
+#mkdir -p ${AMENGCDN_EXEC_PATH}
+#DB_PassWord=`cat ${AMENGCDN_CONF_FILE}  | grep "DB_PassWord" | awk -F = '{print $2}'`
 
-filename_sql=${OLD_DIR}/"ocdn/cdn_info.sql"
-is_file_exsist $filename_sql
+#filename_sql=${OLD_DIR}/"ocdn/cdn_info.sql"
+#is_file_exsist $filename_sql
 
-DB_NAME="cdn_info"
-create_db_sql="create database  ${DB_NAME}"
-mysql -hlocalhost -uroot -p${DB_PassWord} -e "${create_db_sql}"
-mysql -hlocalhost -uroot -p${DB_PassWord} ${DB_NAME} < "${filename_sql}"
+#DB_NAME="cdn_info"
+#create_db_sql="create database  ${DB_NAME}"
+#mysql -hlocalhost -uroot -p${DB_PassWord} -e "${create_db_sql}"
+#mysql -hlocalhost -uroot -p${DB_PassWord} ${DB_NAME} < "${filename_sql}"
 
-is_file_exsist ${OLD_DIR}/syn_node
 
-yum -y install MySQL-python
+#yum -y install MySQL-python
 
 [ -f "${OLD_DIR}/icmp" ] && mv -f ${OLD_DIR}/icmp ${AMENGCDN_EXEC_PATH}/
-[ -f "${OLD_DIR}/syn_node" ] && mv -f ${OLD_DIR}/syn_node ${AMENGCDN_EXEC_PATH}/
+#[ -f "${OLD_DIR}/syn_node" ] && mv -f ${OLD_DIR}/syn_node ${AMENGCDN_EXEC_PATH}/
 [ -f "${OLD_DIR}/read_info" ] && mv -f ${OLD_DIR}/read_info ${AMENGCDN_EXEC_PATH}/
 [ -f "${OLD_DIR}/do_accesslog" ] && mv -f ${OLD_DIR}/do_accesslog ${AMENGCDN_EXEC_PATH}/
 
@@ -193,32 +192,20 @@ chmod u+x ${AMENGCDN_EXEC_PATH}/*
 
 
 
-echo "===========================Deploy OCDN_Web====================================="
-
-WEB_DIR="${AMENGCDN_BASE_PATH}"
-mv -f ${OLD_DIR}/ocdn ${WEB_DIR}/
-pushd ${WEB_DIR} 
-rm -f ${WEB_DIR}/index.html
-chown -R www:www ${WEB_DIR}/ocdn
-
-sed -i "s/ocdn.me/$DB_PassWord/" ${WEB_DIR}/ocdn/database.php
-popd
-
-
 chmod 777 ${OLD_DIR}/amengcdn
 mv -f ${OLD_DIR}/amengcdn /etc/init.d/
 chkconfig --add amengcdn
 service amengcdn restart
 
-mv -f /etc/init.d/iptables /etc/init.d/iptables.bak
-rm -f /etc/sysconfig/iptables
-rm -f /etc/init.d/iptables 
-mv -f ${OLD_DIR}/iptables_start /etc/init.d/iptables
-chmod u+x /etc/init.d/iptables
-mv -f ${OLD_DIR}/iptables.conf /etc/sysconfig/iptables
-service iptables restart
+#mv -f /etc/init.d/iptables /etc/init.d/iptables.bak
+#rm -f /etc/sysconfig/iptables
+#rm -f /etc/init.d/iptables
+#mv -f ${OLD_DIR}/iptables_start /etc/init.d/iptables
+#chmod u+x /etc/init.d/iptables
+#mv -f ${OLD_DIR}/iptables.conf /etc/sysconfig/iptables
+#service iptables restart
 
-echo "*/1 * * * *  ${AMENGCDN_EXEC_PATH}/syn_node >> ${AMENGCDN_LOG_PATH}/syn_node.log 2>&1" | crontab -
+#echo "*/1 * * * *  ${AMENGCDN_EXEC_PATH}/syn_node >> ${AMENGCDN_LOG_PATH}/syn_node.log 2>&1" | crontab -
 
 cd ${OLD_DIR}
 rm -rf lnmp0.9*
