@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Hello boys and girls, Welcome to OpenCDN!
-# OpenCDN a open-source management platform, which can help you build node-hosts in 5 minutes.
+# Hello boys and girls, Welcome to AmengCDN!
+# AmengCDN a open-source management platform, which can help you build node-hosts in 5 minutes.
 # The system consists of the Control Center(CC) and Node Host(NH). The CC can monitor a basic 
 # system information on each node, such as cpu usage and health status. CC also can collect logs 
 # of nginx from all node-hosts. You'd better reference to source code
@@ -69,10 +69,10 @@ function get_system_basic_info()
 	echo "Press any key to start install AmengCDN , please wait ......"
 	char=`get_char`
 
-	OpenCDN_Manage_IP=""
+	AmengCDN_Manage_IP=""
 	echo ""
 	echo -n "now input IP of CDN Management : "
-	read OpenCDN_Manage_IP
+	read AmengCDN_Manage_IP
 	setenforce 0
 	IS_64=`uname -a | grep "x86_64"`
 	if [ -z "${IS_64}" ]
@@ -110,24 +110,24 @@ function is_file_exsist()
 get_system_basic_info
 
 killd_server
-OPENCDN_BASE_PATH="/usr/local/opencdn"
-OPENCDN_EXEC_PATH="/usr/local/opencdn/sbin"
-OPENCDN_CONF_PATH="/usr/local/opencdn/conf"
-OPENCDN_PIPE_PATH="/usr/local/opencdn/pipe"
-OPENCDN_CONF_FILE="/usr/local/opencdn/conf/opencdn.conf"
-NODE_LOGS_PATH="/usr/local/opencdn/node_logs"
-OPENCDN_LOG_PATH="/var/log/opencdn"
+AMENGCDN_BASE_PATH="/usr/local/amengcdn"
+AMENGCDN_EXEC_PATH="/usr/local/amengcdn/sbin"
+AMENGCDN_CONF_PATH="/usr/local/amengcdn/conf"
+AMENGCDN_PIPE_PATH="/usr/local/amengcdn/pipe"
+AMENGCDN_CONF_FILE="/usr/local/amengcdn/conf/amengcdn.conf"
+NODE_LOGS_PATH="/usr/local/amengcdn/node_logs"
+AMENGCDN_LOG_PATH="/var/log/amengcdn"
 
-mkdir -p ${OPENCDN_BASE_PATH}
-mkdir -p ${OPENCDN_EXEC_PATH}
-mkdir -p ${OPENCDN_CONF_PATH}
-mkdir -p ${OPENCDN_LOG_PATH}
-mkdir -p ${OPENCDN_PIPE_PATH}
+mkdir -p ${AMENGCDN_BASE_PATH}
+mkdir -p ${AMENGCDN_EXEC_PATH}
+mkdir -p ${AMENGCDN_CONF_PATH}
+mkdir -p ${AMENGCDN_LOG_PATH}
+mkdir -p ${AMENGCDN_PIPE_PATH}
 mkdir -p ${NODE_LOGS_PATH}
-mkdir -p ${OPENCDN_LOG_PATH}
+mkdir -p ${AMENGCDN_LOG_PATH}
 
 
-access_log="${OPENCDN_PIPE_PATH}/access.pipe"
+access_log="${AMENGCDN_PIPE_PATH}/access.pipe"
 rm -f $access_log
 mkfifo ${access_log}
 if [ ! -p "${access_log}" ] 
@@ -136,7 +136,7 @@ then
 	exit 1;
 fi
 
-sys_fifo="${OPENCDN_PIPE_PATH}/sys_info.pipe"
+sys_fifo="${AMENGCDN_PIPE_PATH}/sys_info.pipe"
 rm -f ${sys_fifo}
 mkfifo $sys_fifo
 if [ ! -p "${sys_fifo}" ] 
@@ -146,46 +146,16 @@ then
 fi
 
 OLD_DIR=`pwd`
-mv -f  ${OLD_DIR}/opencdn.conf ${OPENCDN_CONF_PATH}/
+mv -f  ${OLD_DIR}/amengcdn.conf ${AMENGCDN_CONF_PATH}/
 
-if [ -f "./lnmp0.9.tar.gz" ]
-then
-    tar -zxvf lnmp0.9.tar.gz
-else
-    wget -c http://soft.vpser.net/lnmp/lnmp0.9.tar.gz
-    if [ -f "./lnmp0.9.tar.gz" ]
-    then
-        tar -zxvf lnmp0.9.tar.gz
-    else
-        echo "Downloading http://soft.vpser.net/lnmp/lnmp0.9.tar.gz failured !!!"
-        exit 1
-    fi
-fi
 
-mv -f ${OLD_DIR}/ocdn_console ${OLD_DIR}/lnmp0.9/
-chmod u+x ${OLD_DIR}/lnmp0.9/ocdn_console
-mv -f ${OLD_DIR}/upgrade_php ${OLD_DIR}/lnmp0.9/
-chmod u+x ${OLD_DIR}/lnmp0.9/upgrade_php
-
-pushd lnmp0.9/ 
-is_file_exsist ./ocdn_console
-./ocdn_console
+echo "===========================nginx install start===================================="
+pushd nginx
+chmod u+x ./nginx.sh
+./nginx.sh
 popd
+echo "===========================nginx install completed================================"
 
-cd ${OLD_DIR}
-is_file_exsist ./nginx.conf
-
-mv -f /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.bak
-mv -f ./nginx.conf /usr/local/nginx/conf/
-
-is_file_exsist ./php.ini
-
-mv -f /usr/local/php/etc/php.ini /usr/local/php/etc/php.ini.bak
-mv -f ${OLD_DIR}/php.ini /usr/local/php/etc/
-service php-fpm restart
-
-mv -f ${OLD_DIR}/conf_rsync ${OPENCDN_BASE_PATH}/
-chown -R www:www ${OPENCDN_BASE_PATH}/conf_rsync
 
 echo -e "\033[41;37m =======================syslog install======================== \033[0m"
 
@@ -199,8 +169,8 @@ echo -e "\033[41;37m ====================syslog install completed===============
 
 cd ${OLD_DIR}
 
-mkdir -p ${OPENCDN_EXEC_PATH}
-DB_PassWord=`cat ${OPENCDN_CONF_FILE}  | grep "DB_PassWord" | awk -F = '{print $2}'`
+mkdir -p ${AMENGCDN_EXEC_PATH}
+DB_PassWord=`cat ${AMENGCDN_CONF_FILE}  | grep "DB_PassWord" | awk -F = '{print $2}'`
 
 filename_sql=${OLD_DIR}/"ocdn/cdn_info.sql"
 is_file_exsist $filename_sql
@@ -214,49 +184,18 @@ is_file_exsist ${OLD_DIR}/syn_node
 
 yum -y install MySQL-python
 
-[ -f "${OLD_DIR}/icmp" ] && mv -f ${OLD_DIR}/icmp ${OPENCDN_EXEC_PATH}/
-[ -f "${OLD_DIR}/syn_node" ] && mv -f ${OLD_DIR}/syn_node ${OPENCDN_EXEC_PATH}/
-[ -f "${OLD_DIR}/read_info" ] && mv -f ${OLD_DIR}/read_info ${OPENCDN_EXEC_PATH}/
-[ -f "${OLD_DIR}/do_accesslog" ] && mv -f ${OLD_DIR}/do_accesslog ${OPENCDN_EXEC_PATH}/
+[ -f "${OLD_DIR}/icmp" ] && mv -f ${OLD_DIR}/icmp ${AMENGCDN_EXEC_PATH}/
+[ -f "${OLD_DIR}/syn_node" ] && mv -f ${OLD_DIR}/syn_node ${AMENGCDN_EXEC_PATH}/
+[ -f "${OLD_DIR}/read_info" ] && mv -f ${OLD_DIR}/read_info ${AMENGCDN_EXEC_PATH}/
+[ -f "${OLD_DIR}/do_accesslog" ] && mv -f ${OLD_DIR}/do_accesslog ${AMENGCDN_EXEC_PATH}/
 
-chmod u+x ${OPENCDN_EXEC_PATH}/*
-
-
-
-echo -e "\033[41;37m =======================rsync install======================= \033[0m"
-
-yum -y remove rsync 
-yum -y install rsync 
-
-cd ${OLD_DIR}
-
-if [ ! -f "./inotify-tools-3.14.tar.gz" ]
-then
-	wget -c http://pkgs.fedoraproject.org/repo/pkgs/inotify-tools/inotify-tools-3.14.tar.gz/b43d95a0fa8c45f8bab3aec9672cf30c/inotify-tools-3.14.tar.gz
-fi
-tar -zxvf inotify-tools-3.14.tar.gz
-
-pushd inotify-tools-3.14
-./configure && make && make install
-popd
-
-ln -sv /usr/local/lib/libinotify* /usr/lib/
-ln -s /usr/local/lib/libinotifytools.so.0 /usr/lib64/libinotifytools.so.0
-
-echo "ocdn.me" >/etc/rsyncd.pwd
-chmod 600 /etc/rsyncd.pwd
-
-mv -f ${OLD_DIR}/rsync_send ${OPENCDN_EXEC_PATH}
-chmod u+x ${OPENCDN_EXEC_PATH}/rsync_send
-
-echo -e "\033[41;37m =======================rsync install completed======================= \033[0m"
-
+chmod u+x ${AMENGCDN_EXEC_PATH}/*
 
 
 
 echo "===========================Deploy OCDN_Web====================================="
 
-WEB_DIR="${OPENCDN_BASE_PATH}"
+WEB_DIR="${AMENGCDN_BASE_PATH}"
 mv -f ${OLD_DIR}/ocdn ${WEB_DIR}/
 pushd ${WEB_DIR} 
 rm -f ${WEB_DIR}/index.html
@@ -266,10 +205,10 @@ sed -i "s/ocdn.me/$DB_PassWord/" ${WEB_DIR}/ocdn/database.php
 popd
 
 
-chmod 777 ${OLD_DIR}/opencdn
-mv -f ${OLD_DIR}/opencdn /etc/init.d/
-chkconfig --add opencdn
-service opencdn restart
+chmod 777 ${OLD_DIR}/amengcdn
+mv -f ${OLD_DIR}/amengcdn /etc/init.d/
+chkconfig --add amengcdn
+service amengcdn restart
 
 mv -f /etc/init.d/iptables /etc/init.d/iptables.bak
 rm -f /etc/sysconfig/iptables
@@ -279,7 +218,7 @@ chmod u+x /etc/init.d/iptables
 mv -f ${OLD_DIR}/iptables.conf /etc/sysconfig/iptables
 service iptables restart
 
-echo "*/1 * * * *  ${OPENCDN_EXEC_PATH}/syn_node >> ${OPENCDN_LOG_PATH}/syn_node.log 2>&1" | crontab -
+echo "*/1 * * * *  ${AMENGCDN_EXEC_PATH}/syn_node >> ${AMENGCDN_LOG_PATH}/syn_node.log 2>&1" | crontab -
 
 cd ${OLD_DIR}
 rm -rf lnmp0.9*
@@ -289,12 +228,12 @@ rm -f install.sh
 rm -f iptables
 rm -rf awstats_initial
 
-echo "==========================OpenCDN===================================="
+echo "==========================AmengCDN===================================="
 echo "*                                                                   *"
-echo "*service opencdn [start|stop|restart|status]                        *"
-echo "*Logs of OpenCDN                                                    *"
-echo "*sys_info log path : ${OPENCDN_LOG_PATH}/read_info.log              *"
-echo "*nginx_log path    : ${OPENCDN_LOG_PATH}/do_accesslog.log           *"
-echo "*node health path  : ${OPENCDN_LOG_PATH}/node_health.log            *"
+echo "*service amengcdn [start|stop|restart|status]                        *"
+echo "*Logs of AmengCDN                                                    *"
+echo "*sys_info log path : ${AMENGCDN_LOG_PATH}/read_info.log              *"
+echo "*nginx_log path    : ${AMENGCDN_LOG_PATH}/do_accesslog.log           *"
+echo "*node health path  : ${AMENGCDN_LOG_PATH}/node_health.log            *"
 echo "*                                                                   *"
-echo "==========================OpenCDN===================================="
+echo "==========================AmengCDN===================================="
