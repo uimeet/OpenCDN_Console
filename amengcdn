@@ -1,25 +1,25 @@
 #!/bin/bash
 
-#description: opencdn
+#description: amengcdn
 #chkconfig: 2345 20 81
 
-OPENCDN_LOG_PATH="/var/log/opencdn"
-OPENCDN_EXEC_PATH="/usr/local/opencdn/sbin"
-EXEC="opencdn"
+AMENGCDN_LOG_PATH="/home/data1/amengcdn/logs/"
+AMENGCDN_EXEC_PATH="/usr/local/amengcdn/sbin"
+EXEC="amengcdn"
 EXEC_INFO="read_info"
 EXEC_LOG="do_accesslog"
-EXEC_TASK="syn_node"
-EXEC_RSYNC="rsync_send"
+#EXEC_TASK="syn_node"
+#EXEC_RSYNC="rsync_send"
 EXEC_ICMP="icmp"
 PID_FILE="/var/run/$EXEC.pid"
 
 
 . /etc/rc.d/init.d/functions
 
-[ -x ${OPENCDN_EXEC_PATH}/${EXEC_RSYNC} ] || echo "ERROR: $EXEC_RSYNC not found" 
-[ -x ${OPENCDN_EXEC_PATH}/$EXEC_INFO ] || echo "ERROR: $EXEC_INFO not found" 
-[ -x ${OPENCDN_EXEC_PATH}/$EXEC_LOG ] || echo "ERROR: $EXEC_LOG not found"
-[ -x ${OPENCDN_EXEC_PATH}/$EXEC_TASK ] || echo "ERROR: $EXEC_TASK not found" 
+#[ -x ${AMENGCDN_EXEC_PATH}/${EXEC_RSYNC} ] || echo "ERROR: $EXEC_RSYNC not found"
+[ -x ${AMENGCDN_EXEC_PATH}/$EXEC_INFO ] || echo "ERROR: $EXEC_INFO not found"
+[ -x ${AMENGCDN_EXEC_PATH}/$EXEC_LOG ] || echo "ERROR: $EXEC_LOG not found"
+#[ -x ${AMENGCDN_EXEC_PATH}/$EXEC_TASK ] || echo "ERROR: $EXEC_TASK not found"
 [ -f "$PID_FILE" ] || touch $PID_FILE
 
 stop()
@@ -27,12 +27,12 @@ stop()
        echo "Stoping $EXEC ..."
        ps aux | grep "$EXEC_INFO" | kill -9 `awk '{print $2}'` >/dev/null 2>&1
        ps aux | grep "$EXEC_LOG" | kill -9 `awk '{print $2}'` >/dev/null 2>&1
-       ps aux | grep "$EXEC_TASK" | kill -9 `awk '{print $2}'` >/dev/null 2>&1
+       #ps aux | grep "$EXEC_TASK" | kill -9 `awk '{print $2}'` >/dev/null 2>&1
        ps aux | grep "$EXEC_ICMP" | kill -9 `awk '{print $2}'` >/dev/null 2>&1
 
        #kill rsync and inotify
        kill -9 `ps aux | grep inotify | awk '{print $2}'` > /dev/null 2>&1
-       kill -9 `ps aux | grep 'rsync_send' | awk '{print $2}'` > /dev/null 2>&1
+       #kill -9 `ps aux | grep 'rsync_send' | awk '{print $2}'` > /dev/null 2>&1
 
        service syslog-ng stop
        echo "" > $PID_FILE
@@ -48,10 +48,10 @@ start()
               exit 1
        fi
        echo "Starting $EXEC ..."
-       nohup /bin/bash ${OPENCDN_EXEC_PATH}/read_info >> ${OPENCDN_LOG_PATH}/read_info.log 2>&1 &
-       nohup /bin/bash ${OPENCDN_EXEC_PATH}/do_accesslog >> ${OPENCDN_LOG_PATH}/do_accesslog.log 2>&1 &
-       nohup /bin/bash ${OPENCDN_EXEC_PATH}/rsync_send >> ${OPENCDN_LOG_PATH}/rsync-send.log 2>&1 &
-       nohup python ${OPENCDN_EXEC_PATH}/icmp >> ${OPENCDN_LOG_PATH}/node_health.log 2>&1 &
+       nohup /bin/bash ${AMENGCDN_EXEC_PATH}/read_info >> ${AMENGCDN_LOG_PATH}/read_info.log 2>&1 &
+       nohup /bin/bash ${AMENGCDN_EXEC_PATH}/do_accesslog >> ${AMENGCDN_LOG_PATH}/do_accesslog.log 2>&1 &
+       #nohup /bin/bash ${AMENGCDN_EXEC_PATH}/rsync_send >> ${AMENGCDN_LOG_PATH}/rsync-send.log 2>&1 &
+       nohup python ${AMENGCDN_EXEC_PATH}/icmp >> ${AMENGCDN_LOG_PATH}/node_health.log 2>&1 &
 
        service syslog-ng start
        echo "running" > $PID_FILE

@@ -113,10 +113,10 @@ get_system_basic_info
 AMENGCDN_BASE_PATH="/usr/local/amengcdn"
 AMENGCDN_EXEC_PATH="/usr/local/amengcdn/sbin"
 AMENGCDN_CONF_PATH="/usr/local/amengcdn/conf"
-AMENGCDN_PIPE_PATH="/usr/local/amengcdn/pipe"
+AMENGCDN_PIPE_PATH="/home/data1/amengcdn/pipe"
 AMENGCDN_CONF_FILE="/usr/local/amengcdn/conf/amengcdn.conf"
-NODE_LOGS_PATH="/usr/local/amengcdn/node_logs"
-AMENGCDN_LOG_PATH="/var/log/amengcdn"
+NODE_LOGS_PATH="/home/data1/amengcdn/node_logs"
+AMENGCDN_LOG_PATH="/home/data1/amengcdn/logs/"
 
 mkdir -p ${AMENGCDN_BASE_PATH}
 mkdir -p ${AMENGCDN_EXEC_PATH}
