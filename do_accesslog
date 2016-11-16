@@ -3,7 +3,7 @@
 LINE=""
 KEY='-&@&'
 
-OPENCDN_PIPE_PATH="/usr/local/opencdn/pipe"
+AMENGCDN_PIPE_PATH="/usr/local/amengcdn/pipe"
 tmp_fifo="${OPENCDN_PIPE_PATH}/access.pipe"
 if [ ! -p "${tmp_fifo}" ]
 then
@@ -13,7 +13,7 @@ then
 fi
 
 exec 6<>$tmp_fifo
-NODE_LOGS_PATH="/usr/local/opencdn/node_logs"
+NODE_LOGS_PATH="/home/data1/amengcdn/node_logs"
 if [ ! -d "${NODE_LOGS_PATH}" ];then
 	mkdir -p "${NODE_LOGS_PATH}"
 fi

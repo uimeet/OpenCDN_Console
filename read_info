@@ -3,9 +3,9 @@
 #
 #nohup /bin/bash /usr/local/awstats/tools/read_info.sh > /var/log/read_info.log 2>&1 &
 
-OPENCDN_CONF_FILE="/usr/local/opencdn/conf/opencdn.conf"
-OPENCDN_PIPE_PATH="/usr/local/opencdn/pipe"
-sys_fifo="${OPENCDN_PIPE_PATH}/sys_info.pipe"
+AMENGCDN_CONF_FILE="/usr/local/amengcdn/conf/amengcdn.conf"
+AMENGCDN_PIPE_PATH="/home/data1/amengcdn/pipe"
+sys_fifo="${AMENGCDN_PIPE_PATH}/sys_info.pipe"
 if [ ! -p "$sys_fifo" ];then
     mkfifo $sys_fifo
     service syslog-ng restart
@@ -15,7 +15,7 @@ exec 7<>$sys_fifo
 #mysql initial
 function mysql_initial()
 {
-    DB_PassWord=`cat $OPENCDN_CONF_FILE | grep "DB_PassWord" | awk -F = '{print $2}'`
+    DB_PassWord=`cat $AMENGCDN_CONF_FILE | grep "DB_PassWord" | awk -F = '{print $2}'`
     #database initial 
     DB_HOST="127.0.0.1"
     DB_USER="root"
@@ -53,7 +53,7 @@ node_num=0
 # mysql initial 
 mysql_initial
 
-# read configure file of opencdn
+# read configure file of amengcdn
 # read_conf
 
 while :
